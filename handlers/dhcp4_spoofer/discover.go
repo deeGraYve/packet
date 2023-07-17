@@ -6,35 +6,36 @@ import (
 	"net/netip"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // handleDiscover respond with a DHCP offer packet
 //
 // At the ethernet and IP layer:
-//    srcMAC is set to the client mac
-//    srcIP is set to 0.0.0.0
-//    dstMAC and dstIP are set to the respective broadcast address.
+//
+//	srcMAC is set to the client mac
+//	srcIP is set to 0.0.0.0
+//	dstMAC and dstIP are set to the respective broadcast address.
 //
 // RFC2131: https://tools.ietf.org/html/rfc2131
 //
 // If an address is available, the new address
 // SHOULD be chosen as follows:
 //
-// 1) The client's current address as recorded in the client's current
-//    binding, ELSE
+//  1. The client's current address as recorded in the client's current
+//     binding, ELSE
 //
-// 2) The client's previous address as recorded in the client's (now
-//    expired or released) binding, if that address is in the server's
-//    pool of available addresses and not already allocated, ELSE
+//  2. The client's previous address as recorded in the client's (now
+//     expired or released) binding, if that address is in the server's
+//     pool of available addresses and not already allocated, ELSE
 //
-// 3) The address requested in the 'Requested IP Address' option, if that
-//    address is valid and not already allocated, ELSE
+//  3. The address requested in the 'Requested IP Address' option, if that
+//     address is valid and not already allocated, ELSE
 //
-// 4) A new address allocated from the server's pool of available
-//    addresses; the address is selected based on the subnet from which
-//    the message was received (if 'giaddr' is 0) or on the address of
-//    the relay agent that forwarded the message ('giaddr' when not 0).
+//  4. A new address allocated from the server's pool of available
+//     addresses; the address is selected based on the subnet from which
+//     the message was received (if 'giaddr' is 0) or on the address of
+//     the relay agent that forwarded the message ('giaddr' when not 0).
 func (h *Handler) handleDiscover(p packet.DHCP4, options packet.DHCP4Options) (d packet.DHCP4) {
 
 	clientID := getClientID(p, options)

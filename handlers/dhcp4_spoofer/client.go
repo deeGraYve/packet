@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 var (
@@ -67,7 +67,7 @@ func (h *Handler) forceDecline(clientID []byte, serverIP netip.Addr, chAddr net.
 // forceRelease send a fake release packet to force release of the IP so the
 // client has to discover again when trying to renew.
 //
-// In most cases the home dhcp will drop the entry and will have an empty dhcp table
+// # In most cases the home dhcp will drop the entry and will have an empty dhcp table
 //
 // Jan 21 - NOT working; the test router does not drop the entry. WHY?
 func (h *Handler) forceRelease(clientID []byte, serverIP netip.Addr, chAddr net.HardwareAddr, clientIP netip.Addr, xid []byte) {

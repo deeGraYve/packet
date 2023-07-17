@@ -5,7 +5,7 @@ import (
 	"net/netip"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // HandleRequest process client DHCPREQUEST message to servers

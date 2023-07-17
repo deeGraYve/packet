@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"syscall"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 	"golang.org/x/net/ipv4"
 )
 

@@ -6,7 +6,7 @@ import (
 	"net/netip"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 var (

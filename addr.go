@@ -5,7 +5,7 @@ import (
 	"net"
 	"net/netip"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 // Addr is a common type to hold the IP and MAC pair

@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // StartHunt will actively poison the target IP with fake icmp6 NA to redirect

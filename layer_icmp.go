@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 	"golang.org/x/net/ipv6"
 )
 

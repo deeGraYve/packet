@@ -12,8 +12,8 @@ import (
 	"net/netip"
 	"sync"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 const module = "dns"
@@ -100,7 +100,6 @@ func ReverseDNS(ip netip.Addr) error {
 // ProcessDNS parse the DNS packet and record in DNS cache table.
 //
 // It returns a copy of the DNSEntry that is free from race conditions. The caller has a unique copy.
-//
 func (h *DNSHandler) ProcessDNS(frame packet.Frame) (e packet.DNSEntry, err error) {
 	p := packet.DNS(frame.Payload())
 	if err := p.IsValid(); err != nil {

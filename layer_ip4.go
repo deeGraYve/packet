@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/netip"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 const (

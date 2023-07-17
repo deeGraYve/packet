@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 func testRequestPacket(mt packet.DHCP4MessageType, chAddr net.HardwareAddr, cIAddr netip.Addr, xId []byte, broadcast bool, options packet.DHCP4Options) packet.DHCP4 {

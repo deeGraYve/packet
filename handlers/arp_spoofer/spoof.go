@@ -4,7 +4,7 @@ import (
 	"net/netip"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // IsHunting returns true if the ip is activelly hunted via a goroutine
@@ -28,7 +28,6 @@ func (h *Handler) findHuntByIP(ip netip.Addr) (packet.Addr, bool) {
 // ARP StartHunt performs the following:
 //  1. add addr to "hunt" list
 //  2. start spoof goroutine to which will continuously spoof the client ARP table
-//
 func (h *Handler) StartHunt(addr packet.Addr) (packet.HuntStage, error) {
 	if addr.MAC == nil || !addr.IP.Is4() {
 		return packet.StageNoChange, packet.ErrInvalidIP
@@ -69,7 +68,6 @@ func (h *Handler) StopHunt(addr packet.Addr) (packet.HuntStage, error) {
 // spoofLoop attacks the client with ARP attacks. The loop will
 // continuously send poisoned arp packets to client to keep its arp
 // table pointing to us as the default gw.
-//
 func (h *Handler) spoofLoop(addr packet.Addr) {
 	// The client ARP table is refreshed often and only last for a short while (i.e. a few minutes)
 	// To make sure the cache stays poisoned, replay every few seconds with a loop.

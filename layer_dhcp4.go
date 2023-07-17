@@ -6,7 +6,7 @@ import (
 	"net/netip"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 // DHCP4 port numbers

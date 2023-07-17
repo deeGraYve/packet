@@ -3,7 +3,7 @@ package packet
 import (
 	"encoding/binary"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 // Realtek Remote Control Protocol
@@ -36,10 +36,11 @@ func (p RRCP) IsValid() error {
 }
 
 // Protocol 0x01 - the original format but not seen in logs yet.
-//      RRCP protocol description: http://realtek.info/pdf/rtl8324.pdf
-//                                 http://openrrcp.org.ru/download/datasheets/RTL8326_8326S_DataSheet_3.1.pdf
-//      some sample C code here: https://www.wireshark.org/lists/ethereal-dev/200409/msg00090.html
-//                               https://github.com/the-tcpdump-group/tcpdump/blob/master/print-rrcp.c
+//
+//	RRCP protocol description: http://realtek.info/pdf/rtl8324.pdf
+//	                           http://openrrcp.org.ru/download/datasheets/RTL8326_8326S_DataSheet_3.1.pdf
+//	some sample C code here: https://www.wireshark.org/lists/ethereal-dev/200409/msg00090.html
+//	                         https://github.com/the-tcpdump-group/tcpdump/blob/master/print-rrcp.c
 func (p RRCP) Protocol() uint8      { return p[0] }                            // 8bits - 0x01 Realtek Remote Control Protocol; 0x23 Loop detection
 func (p RRCP) Reply() bool          { return (p[1]&0x80 == 0x80) }             // 1 bit - 1 reply from switch to management station
 func (p RRCP) OpCode() uint8        { return p[1] & 0x7f }                     // 7 bits - 00 Hello; 01 Get configuration; 02 Set configuration
@@ -70,9 +71,11 @@ func (p RRCP) FastLog(l *fastlog.Line) *fastlog.Line {
 }
 
 // Protocol 0x23 - Loop detection - RTL8305
-//        common in Arris router
-//        see - https://www.openhacks.com/uploadsproductos/realtek-semicon-rtl8305nb-cg-qfn-48_c52146.pdf
-//                  1byte                         1byte
+//
+//	common in Arris router
+//	see - https://www.openhacks.com/uploadsproductos/realtek-semicon-rtl8305nb-cg-qfn-48_c52146.pdf
+//	          1byte                         1byte
+//
 // + *       +---------------------------+---------------------------+
 // + *       |              Protocol number - 0x2300                 |
 // + *       +-------------------------------------------------------+

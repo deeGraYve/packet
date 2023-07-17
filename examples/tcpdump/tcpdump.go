@@ -7,7 +7,7 @@ import (
 	"net"
 	"net/netip"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // Simple tcpdump utility to dump network packets.

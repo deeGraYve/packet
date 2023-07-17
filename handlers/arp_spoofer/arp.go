@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 const (
@@ -148,7 +148,9 @@ func (h *Handler) AnnounceTo(dst net.HardwareAddr, targetIP netip.Addr) (err err
 // i.e. unicast polling check for stale ARP entries; useful to test online/offline state
 //
 // ARP: packet types
-//      note that RFC 3927 specifies 00:00:00:00:00:00 for Request TargetMAC
+//
+//	note that RFC 3927 specifies 00:00:00:00:00:00 for Request TargetMAC
+//
 // +============+===+===========+===========+============+============+===================+===========+
 // | Type       | op| etherDST  | etherSRC  | SenderMAC  | SenderIP   | TargetMAC         |  TargetIP |
 // +============+===+===========+===========+============+============+===================+===========+
@@ -158,7 +160,6 @@ func (h *Handler) AnnounceTo(dst net.HardwareAddr, targetIP netip.Addr) (err err
 // | ACD probe  | 1 | broadcast | hostMAC   | clientMAC  | 0x00       | 0x00              |  targetIP |
 // | ACD announ | 1 | broadcast | hostMAC   | clientMAC  | clientIP   | ff:ff:ff:ff:ff:ff |  clientIP |
 // +============+===+===========+===========+============+============+===================+===========+
-//
 func (h *Handler) RequestRaw(dst net.HardwareAddr, sender packet.Addr, target packet.Addr) (err error) {
 	b := packet.EtherBufferPool.Get().(*[packet.EthMaxSize]byte)
 	defer packet.EtherBufferPool.Put(b)
@@ -206,7 +207,6 @@ func (h *Handler) reply(dst net.HardwareAddr, sender packet.Addr, target packet.
 }
 
 // WhoIs will send a request packet to get the MAC address for the IP. Retry 3 times.
-//
 func (h *Handler) WhoIs(ip netip.Addr) (packet.Addr, error) {
 
 	for i := 0; i < 3; i++ {
@@ -263,7 +263,9 @@ func (h *Handler) Scan() error {
 // ProcessPacket process an ARP packet
 //
 // ARP: packet types
-//      note that RFC 3927 specifies 00:00:00:00:00:00 for Request TargetMAC
+//
+//	note that RFC 3927 specifies 00:00:00:00:00:00 for Request TargetMAC
+//
 // +============+===+===========+===========+============+============+===================+===========+
 // | Type       | op| EthDstMAC | EthSRCMAC | SenderMAC  | SenderIP   | TargetMAC         |  TargetIP |
 // +============+===+===========+===========+============+============+===================+===========+

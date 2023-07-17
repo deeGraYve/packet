@@ -8,7 +8,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 	"golang.org/x/net/dns/dnsmessage"
 )
 
@@ -161,12 +161,13 @@ func (h *DNSHandler) sendNBNS(srcAddr packet.Addr, dstAddr packet.Addr, p packet
 // parseNodeNameArray process a name arra in the status node response packet
 //
 // The first byte is the number of entries followed by an array of
-//   name (16 bytes)
-//   flags (2 bytes)
-//      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-//      | G |     not important for our needs                           |
-//      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-//      G               0   Group Name Flag.  If one (1) then the name is a GROUP NetBIOS name.  If zero (0) then it is a UNIQUE NetBIOS name.
+//
+//	name (16 bytes)
+//	flags (2 bytes)
+//	   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+//	   | G |     not important for our needs                           |
+//	   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+//	   G               0   Group Name Flag.  If one (1) then the name is a GROUP NetBIOS name.  If zero (0) then it is a UNIQUE NetBIOS name.
 //
 // for full details refer to:
 func parseNodeNameArray(b []byte) (names []string, err error) {
@@ -193,23 +194,24 @@ func parseNodeNameArray(b []byte) (names []string, err error) {
 
 // parseNodeStatusResponse
 // 4.2.18.  NODE STATUS RESPONSE
-//                           1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
-//    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//   |         Header                                                |
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//   /                            RR_NAME (variable len)             /
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//   |        NBSTAT (0x0021)        |         IN (0x0001)           |
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//   |                          0x00000000                           |
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//   |          RDLENGTH             |   NUM_NAMES   |               |
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               +
-//   /                         NODE_NAME ARRAY  (variable len)       /
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//   /                           STATISTICS      (variable len)      /
-//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//
+//	                        1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
+//	 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//	|         Header                                                |
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//	/                            RR_NAME (variable len)             /
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//	|        NBSTAT (0x0021)        |         IN (0x0001)           |
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//	|                          0x00000000                           |
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//	|          RDLENGTH             |   NUM_NAMES   |               |
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               +
+//	/                         NODE_NAME ARRAY  (variable len)       /
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//	/                           STATISTICS      (variable len)      /
+//	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 func processNBNSNodeStatusResponse(b []byte) (names []string, err error) {
 	if len(b) < 3 {
 		return names, packet.ErrInvalidLen

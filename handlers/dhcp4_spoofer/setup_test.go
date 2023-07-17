@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 var (

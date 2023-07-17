@@ -9,10 +9,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
-	arp "github.com/irai/packet/handlers/arp_spoofer"
-	icmp "github.com/irai/packet/handlers/icmp_spoofer"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
+	arp "github.com/deeGraYve/packet/handlers/arp_spoofer"
+	icmp "github.com/deeGraYve/packet/handlers/icmp_spoofer"
 )
 
 // Simple utility to demonstrate use of ARP spoofing

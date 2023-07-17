@@ -22,9 +22,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 const module = "dhcp4"

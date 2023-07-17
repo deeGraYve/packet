@@ -171,7 +171,7 @@ go func() {
 	}()
 	
 // In your main packet processing loop, call the s.Notify() function as the last action in the loop.
-// See example here: https://github.com/irai/packet/tree/main/examples/hosts
+// See example here: https://github.com/deeGraYve/packet/tree/main/examples/hosts
 ```
 
 ## IPv6 icmp spoofing

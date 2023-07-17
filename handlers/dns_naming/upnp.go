@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // UPNP protocol description
@@ -15,16 +15,17 @@ import (
 
 // example XML
 // <root xmlns="urn:schemas-upnp-org:device-1-0">
-//   <specVersion>
-//     <major>1</major>
-//     <minor>0</minor>
-//   </specVersion>
-//   <device>
-//     <friendlyName>192.168.0.103 - Sonos Play:1</friendlyName>
-//     <manufacturer>Sonos, Inc.</manufacturer>
-//     <modelNumber>S1</modelNumber>
-//     <modelDescription>Sonos Play:1</modelDescription>
-//     <modelName>Sonos Play:1</modelName>
+//
+//	<specVersion>
+//	  <major>1</major>
+//	  <minor>0</minor>
+//	</specVersion>
+//	<device>
+//	  <friendlyName>192.168.0.103 - Sonos Play:1</friendlyName>
+//	  <manufacturer>Sonos, Inc.</manufacturer>
+//	  <modelNumber>S1</modelNumber>
+//	  <modelDescription>Sonos Play:1</modelDescription>
+//	  <modelName>Sonos Play:1</modelName>
 type UPNPDevice struct {
 	Name             string `xml:"friendlyName"`
 	Model            string `xml:"modelName"`
@@ -41,7 +42,8 @@ type UPNPService struct {
 // unmarshalUPNPServiceDescriptor process a UPNP service description XML
 //
 // For a format and list of fields see section 2.3 service description
-//    http://www.upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.0.pdf
+//
+//	http://www.upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.0.pdf
 func unmarshalUPNPServiceDescriptor(b []byte) (v UPNPService, err error) {
 	v = UPNPService{}
 	if err := xml.Unmarshal(b, &v); err != nil {

@@ -7,7 +7,7 @@ import (
 	"net/netip"
 	"strings"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 // NbnsQuestionClass
@@ -16,21 +16,21 @@ const questionClassInternet = 0x0001
 // DNS represents a DNS packet as specified in RFC 1034 / RFC 1035
 // see : https://github.com/google/gopacket/blob/master/layers/dns.go
 //
-//  DNS packet format
-//  0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                      ID                       |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |QR|   Opcode  |AA|TC|RD|RA|   Z    |   RCODE   |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                    QDCOUNT                    |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                    ANCOUNT                    |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                    NSCOUNT                    |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                    ARCOUNT                    |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	DNS packet format
+//	0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                      ID                       |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|QR|   Opcode  |AA|TC|RD|RA|   Z    |   RCODE   |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                    QDCOUNT                    |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                    ANCOUNT                    |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                    NSCOUNT                    |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                    ARCOUNT                    |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 type DNS []byte
 
 func (p DNS) IsValid() error {
@@ -144,32 +144,34 @@ func NewDNSEntry() (entry DNSEntry) {
 // decode decodes the resource record, returning the total length of the record.
 //
 // not goroutine safe:
-//   must acquire lock before calling as function will update maps
+//
+//	must acquire lock before calling as function will update maps
 func (e *DNSEntry) DecodeAnswers(p DNS, offset int, buffer []byte) (int, bool, error) {
 	return e.decodeRRs(int(p.ANCount()), p, offset, buffer)
 }
 
 // decodeRRs decodes resource records returning the total length of the record.
-//  DNSResourceRecord
-//  0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                                               |
-//  /                                               /
-//  /                      NAME                     /
-//  |                                               |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                      TYPE                     |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                     CLASS                     |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                      TTL                      |
-//  |                                               |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-//  |                   RDLENGTH                    |
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--|
-//  /                     RDATA                     /
-//  /                                               /
-//  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//
+//	DNSResourceRecord
+//	0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                                               |
+//	/                                               /
+//	/                      NAME                     /
+//	|                                               |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                      TYPE                     |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                     CLASS                     |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                      TTL                      |
+//	|                                               |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+//	|                   RDLENGTH                    |
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--|
+//	/                     RDATA                     /
+//	/                                               /
+//	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 func (e *DNSEntry) decodeRRs(count int, p DNS, offset int, buffer []byte) (int, bool, error) {
 	var updated bool
 	var tmpBuf []byte // temporary buffer to avoid allocation

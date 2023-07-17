@@ -7,10 +7,11 @@ import (
 	"net/netip"
 	"testing"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
-/**
+/*
+*
 sudo tcpdump -v -XX -t icmp6
 icmp6 redirect
 */
@@ -64,8 +65,9 @@ func Test_ICMP6Redirect(t *testing.T) {
 // sudo tcpdump -en -vv -XX -t icmp6
 // 02:42:ca:78:04:50 > 8c:85:90:ae:ab:fc, ethertype IPv6 (0x86dd), length 86: (hlim 255, next-header ICMPv6 (58) payload length: 32)
 // fe80::ce32:e5ff:fe0e:67f4 > ff02::1: [icmp6 sum ok] ICMP6, neighbor advertisement, length 32, tgt is fe80::ce32:e5ff:fe0e:67f4, Flags [override]
-//   destination link-address option (2), length 8 (1): 02:42:ca:78:04:50
-//   0x0000:  0242 ca78 0450
+//
+//	destination link-address option (2), length 8 (1): 02:42:ca:78:04:50
+//	0x0000:  0242 ca78 0450
 var testicmp6NAOverride = []byte{
 	0x8c, 0x85, 0x90, 0xae, 0xab, 0xfc, 0x02, 0x42, 0xca, 0x78, 0x04, 0x50, 0x86, 0xdd, 0x60, 0x00, //  .......B.x.P..`.
 	0x00, 0x00, 0x00, 0x20, 0x3a, 0xff, 0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xce, 0x32, //  ....:..........2

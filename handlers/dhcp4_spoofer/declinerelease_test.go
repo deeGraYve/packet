@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 func Test_declineSimple(t *testing.T) {

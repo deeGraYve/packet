@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 func TestAttach(t *testing.T) {
@@ -36,22 +36,25 @@ func mustHex(b []byte) []byte {
 	return b[:n]
 }
 
-/* sudo tcpdump -en -v -XX -t port 67 or port 68
+/*
+	sudo tcpdump -en -v -XX -t port 67 or port 68
+
 84:11:9e:03:89:c0 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 357: (tos 0x0, ttl 64, id 42239, offset 0, flags [none], proto UDP (17), length 343)
-    0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 84:11:9e:03:89:c0, length 315, xid 0x4eb132d6, secs 1, Flags [none]
-	  Client-Ethernet-Address 84:11:9e:03:89:c0
-	  Vendor-rfc1048 Extensions
-	    Magic Cookie 0x63825363
-	    DHCP-Message Option 53, length 1: Request
-	    Client-ID Option 61, length 7: ether 84:11:9e:03:89:c0
-	    Requested-IP Option 50, length 4: 192.168.0.134
-	    MSZ Option 57, length 2: 1500
-	    Vendor-Class Option 60, length 12: "dhcpcd-5.5.6"
-	    Hostname Option 12, length 24: "android-d8ea006c9d2690b9"
-	    Parameter-Request Option 55, length 10:
-	      Subnet-Mask, Static-Route, Default-Gateway, Domain-Name-Server
-	      Domain-Name, MTU, BR, Lease-Time
-	      RN, RB
+
+	    0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 84:11:9e:03:89:c0, length 315, xid 0x4eb132d6, secs 1, Flags [none]
+		  Client-Ethernet-Address 84:11:9e:03:89:c0
+		  Vendor-rfc1048 Extensions
+		    Magic Cookie 0x63825363
+		    DHCP-Message Option 53, length 1: Request
+		    Client-ID Option 61, length 7: ether 84:11:9e:03:89:c0
+		    Requested-IP Option 50, length 4: 192.168.0.134
+		    MSZ Option 57, length 2: 1500
+		    Vendor-Class Option 60, length 12: "dhcpcd-5.5.6"
+		    Hostname Option 12, length 24: "android-d8ea006c9d2690b9"
+		    Parameter-Request Option 55, length 10:
+		      Subnet-Mask, Static-Route, Default-Gateway, Domain-Name-Server
+		      Domain-Name, MTU, BR, Lease-Time
+		      RN, RB
 */
 var android_req1 = []byte(
 	`ffff ffff ffff 8411 9e03 89c0 0800 4500` + //  ..............E.
@@ -78,9 +81,11 @@ var android_req1 = []byte(
 		`3964 3236 3930 6239 370a 0121 0306 0f1a` + //  9d2690b97..!....
 		`1c33 3a3b ff`) //  .3:;.
 
-/**
+/*
+*
 84:11:9e:03:89:c0 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 357: (tos 0x0, ttl 64, id 46952, offset 0, flags [none], proto UDP (17), length 343)
 0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 84:11:9e:03:89:c0, length 315, xid 0x40d78b0, Flags [none]
+
 	Client-Ethernet-Address 84:11:9e:03:89:c0
 	Vendor-rfc1048 Extensions
 	Magic Cookie 0x63825363
@@ -120,21 +125,23 @@ var android_req2 = []byte(
 		`3964 3236 3930 6239 370a 0121 0306 0f1a` + //  9d2690b97..!....
 		`1c33 3a3b ff`) //  .3:;.
 
-/**
-		84:11:9e:03:89:c0 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 351: (tos 0x0, ttl 64, id 15125, offset 0, flags [none], proto UDP (17), length 337)
-    0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 84:11:9e:03:89:c0, length 309, xid 0xfc07f1a1, Flags [none]
-	  Client-Ethernet-Address 84:11:9e:03:89:c0
-	  Vendor-rfc1048 Extensions
-	    Magic Cookie 0x63825363
-	    DHCP-Message Option 53, length 1: Discover
-	    Client-ID Option 61, length 7: ether 84:11:9e:03:89:c0
-	    MSZ Option 57, length 2: 1500
-	    Vendor-Class Option 60, length 12: "dhcpcd-5.5.6"
-	    Hostname Option 12, length 24: "android-d8ea006c9d2690b9"
-	    Parameter-Request Option 55, length 10:
-	      Subnet-Mask, Static-Route, Default-Gateway, Domain-Name-Server
-	      Domain-Name, MTU, BR, Lease-Time
-	      RN, RB
+/*
+*
+
+			84:11:9e:03:89:c0 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 351: (tos 0x0, ttl 64, id 15125, offset 0, flags [none], proto UDP (17), length 337)
+	    0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 84:11:9e:03:89:c0, length 309, xid 0xfc07f1a1, Flags [none]
+		  Client-Ethernet-Address 84:11:9e:03:89:c0
+		  Vendor-rfc1048 Extensions
+		    Magic Cookie 0x63825363
+		    DHCP-Message Option 53, length 1: Discover
+		    Client-ID Option 61, length 7: ether 84:11:9e:03:89:c0
+		    MSZ Option 57, length 2: 1500
+		    Vendor-Class Option 60, length 12: "dhcpcd-5.5.6"
+		    Hostname Option 12, length 24: "android-d8ea006c9d2690b9"
+		    Parameter-Request Option 55, length 10:
+		      Subnet-Mask, Static-Route, Default-Gateway, Domain-Name-Server
+		      Domain-Name, MTU, BR, Lease-Time
+		      RN, RB
 */
 var android_discover = []byte(`ffff ffff ffff 8411 9e03 89c0 0800 4500` + //  ..............E.
 	`0151 3b15 0000 4011 3e88 0000 0000 ffff` + //  .Q;...@.>.......
@@ -159,23 +166,25 @@ var android_discover = []byte(`ffff ffff ffff 8411 9e03 89c0 0800 4500` + //  ..
 	`642d 6438 6561 3030 3663 3964 3236 3930` + //  d-d8ea006c9d2690
 	`6239 370a 0121 0306 0f1a 1c33 3a3b ff`) //  b97..!.....3:;.
 
-/**
-	84:11:9e:03:89:c0 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 363: (tos 0x0, ttl 64, id 51592, offset 0, flags [none], proto UDP (17), length 349)
-    0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 84:11:9e:03:89:c0, length 321, xid 0xfc07f1a1, Flags [none]
-	  Client-Ethernet-Address 84:11:9e:03:89:c0
-	  Vendor-rfc1048 Extensions
-	    Magic Cookie 0x63825363
-	    DHCP-Message Option 53, length 1: Request
-	    Client-ID Option 61, length 7: ether 84:11:9e:03:89:c0
-	    Requested-IP Option 50, length 4: 192.168.0.131
-	    Server-ID Option 54, length 4: 192.168.0.129
-	    MSZ Option 57, length 2: 1500
-	    Vendor-Class Option 60, length 12: "dhcpcd-5.5.6"
-	    Hostname Option 12, length 24: "android-d8ea006c9d2690b9"
-	    Parameter-Request Option 55, length 10:
-	      Subnet-Mask, Static-Route, Default-Gateway, Domain-Name-Server
-	      Domain-Name, MTU, BR, Lease-Time
-	      RN, RB
+/*
+*
+
+		84:11:9e:03:89:c0 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 363: (tos 0x0, ttl 64, id 51592, offset 0, flags [none], proto UDP (17), length 349)
+	    0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 84:11:9e:03:89:c0, length 321, xid 0xfc07f1a1, Flags [none]
+		  Client-Ethernet-Address 84:11:9e:03:89:c0
+		  Vendor-rfc1048 Extensions
+		    Magic Cookie 0x63825363
+		    DHCP-Message Option 53, length 1: Request
+		    Client-ID Option 61, length 7: ether 84:11:9e:03:89:c0
+		    Requested-IP Option 50, length 4: 192.168.0.131
+		    Server-ID Option 54, length 4: 192.168.0.129
+		    MSZ Option 57, length 2: 1500
+		    Vendor-Class Option 60, length 12: "dhcpcd-5.5.6"
+		    Hostname Option 12, length 24: "android-d8ea006c9d2690b9"
+		    Parameter-Request Option 55, length 10:
+		      Subnet-Mask, Static-Route, Default-Gateway, Domain-Name-Server
+		      Domain-Name, MTU, BR, Lease-Time
+		      RN, RB
 */
 var android_req3 = []byte(`ffff ffff ffff 8411 9e03 89c0 0800 4500` + //  ..............E.
 	`015d c988 0000 4011 b008 0000 0000 ffff` + //  .]....@.........

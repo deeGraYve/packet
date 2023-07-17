@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 //go:generate stringer -type=PayloadID

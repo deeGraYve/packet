@@ -8,7 +8,7 @@ import (
 
 	"net/netip"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 // HostTable manages host entries

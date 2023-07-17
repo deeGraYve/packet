@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 func Test_requestSimple(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"syscall"
 	"testing"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 func Benchmark_FastLogPrint(b *testing.B) {

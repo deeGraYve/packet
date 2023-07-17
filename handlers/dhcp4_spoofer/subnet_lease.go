@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -16,7 +16,8 @@ import (
 //
 // DefaultGW must be accessible in the subnet
 // example: lan 192.168.0.0/24, gw 192.168.0.1
-//          lan 192.168.0.128/25, gw 192.168.0.129
+//
+//	lan 192.168.0.128/25, gw 192.168.0.129
 type SubnetConfig struct {
 	LAN        netip.Prefix     // lan address & netmask
 	DefaultGW  netip.Addr       // Default Gateway for subnet

@@ -13,10 +13,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
-	dhcp4 "github.com/irai/packet/handlers/dhcp4_spoofer"
-	dns "github.com/irai/packet/handlers/dns_naming"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
+	dhcp4 "github.com/deeGraYve/packet/handlers/dhcp4_spoofer"
+	dns "github.com/deeGraYve/packet/handlers/dns_naming"
 )
 
 var (

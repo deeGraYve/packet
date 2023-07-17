@@ -1,7 +1,7 @@
 package packet
 
 import (
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 type Notification struct {

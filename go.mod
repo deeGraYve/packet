@@ -1,4 +1,4 @@
-module github.com/irai/packet
+module github.com/deeGraYve/packet
 
 go 1.18
 

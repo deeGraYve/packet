@@ -6,8 +6,8 @@ import (
 	"syscall"
 	"testing"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 var (
@@ -72,11 +72,13 @@ var frameMSearchRequest = []byte{
 	0x6e, 0x64, 0x6f, 0x77, 0x73, 0x0d, 0x0a, 0x0d, 0x0a, // ndows....
 }
 
-/**
+/*
+*
 // By default, Google Chrome sends SSDP network broadcast traffic on the LAN.
 // Google Chrome sends same M-SEARCH packet as Microfot Edge  (Chromium feature?)
 4c:bb:58:f4:b2:d7 > 01:00:5e:7f:ff:fa, ethertype IPv4 (0x0800), length 216: (tos 0x0, ttl 1, id 36554, offset 0, flags [none], proto UDP (17), length 202)
-    192.168.0.104.61313 > 239.255.255.250.1900: UDP, length 174
+
+	192.168.0.104.61313 > 239.255.255.250.1900: UDP, length 174
 */
 var frameMSearchRequestChrome = []byte{
 	0x45, 0x00, //  E.   - removed Ethernet frame

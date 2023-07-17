@@ -7,7 +7,7 @@ import (
 	"net/netip"
 	"testing"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 func mustHex(b []byte) []byte {
@@ -53,16 +53,17 @@ var testYouTubeCom = mustHex([]byte(
 
 /*
 34:e8:94:42:29:a9 > 02:42:15:e6:10:08, ethertype IPv4 (0x0800), length 248: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 234)
-    192.168.1.1.53 > 192.168.0.129.60567: 36646 9/0/1
-	www.youtube.com. CNAME youtube-ui.l.google.com.,
-	youtube-ui.l.google.com. A 142.250.76.110,
-	youtube-ui.l.google.com. A 142.250.204.14,
-	youtube-ui.l.google.com. A 172.217.167.78,
-	youtube-ui.l.google.com. A 142.250.66.238,
-	youtube-ui.l.google.com. A 142.250.67.14,
-	youtube-ui.l.google.com. A 142.250.71.78,
-	youtube-ui.l.google.com. A 172.217.167.110,
-	youtube-ui.l.google.com. A 142.250.66.206 (206)
+
+	    192.168.1.1.53 > 192.168.0.129.60567: 36646 9/0/1
+		www.youtube.com. CNAME youtube-ui.l.google.com.,
+		youtube-ui.l.google.com. A 142.250.76.110,
+		youtube-ui.l.google.com. A 142.250.204.14,
+		youtube-ui.l.google.com. A 172.217.167.78,
+		youtube-ui.l.google.com. A 142.250.66.238,
+		youtube-ui.l.google.com. A 142.250.67.14,
+		youtube-ui.l.google.com. A 142.250.71.78,
+		youtube-ui.l.google.com. A 172.217.167.110,
+		youtube-ui.l.google.com. A 142.250.66.206 (206)
 */
 var testWwwYouTubeCom = mustHex([]byte(
 	`0242 15e6 1008 34e8 9442 29a9 0800 4500` + //  .B....4..B)...E.
@@ -106,7 +107,8 @@ facebook.com.           94      IN      A       157.240.8.35
 /*
 dig www.facebook.com
 34:e8:94:42:29:a9 > 02:42:15:e6:10:08, ethertype IPv4 (0x0800), length 132: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 118)
-    192.168.1.1.53 > 192.168.0.129.55588: 24213 2/0/1 www.facebook.com. CNAME star-mini.c10r.facebook.com., star-mini.c10r.facebook.com. A 157.240.8.35 (90)
+
+	192.168.1.1.53 > 192.168.0.129.55588: 24213 2/0/1 www.facebook.com. CNAME star-mini.c10r.facebook.com., star-mini.c10r.facebook.com. A 157.240.8.35 (90)
 */
 var testWwwFacebookComAnswer = mustHex([]byte(
 	`0242 15e6 1008 34e8 9442 29a9 0800 4500` + //  .B....4..B)...E.
@@ -143,13 +145,13 @@ td-balancer-ause1-67-249.wixdns.net. 242 IN A   35.244.67.249
 ;; WHEN: Tue May 18 10:38:12 AEST 2021
 ;; MSG SIZE  rcvd: 190
 
-		34:e8:94:42:29:a9 > 02:42:15:e6:10:08, ethertype IPv4 (0x0800), length 232: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 218)
-    192.168.1.1.53 > 192.168.0.129.46239: 24076 5/0/1
-	www.blockthekids.com. CNAME www245.wixdns.net.,
-	www245.wixdns.net. CNAME balancer.wixdns.net.,
-	balancer.wixdns.net. CNAME c098a3f6-balancer.wixdns.net.,
-	c098a3f6-balancer.wixdns.net. CNAME td-balancer-ause1-67-249.wixdns.net.,
-	td-balancer-ause1-67-249.wixdns.net. A 35.244.67.249 (190)
+			34:e8:94:42:29:a9 > 02:42:15:e6:10:08, ethertype IPv4 (0x0800), length 232: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 218)
+	    192.168.1.1.53 > 192.168.0.129.46239: 24076 5/0/1
+		www.blockthekids.com. CNAME www245.wixdns.net.,
+		www245.wixdns.net. CNAME balancer.wixdns.net.,
+		balancer.wixdns.net. CNAME c098a3f6-balancer.wixdns.net.,
+		c098a3f6-balancer.wixdns.net. CNAME td-balancer-ause1-67-249.wixdns.net.,
+		td-balancer-ause1-67-249.wixdns.net. A 35.244.67.249 (190)
 */
 var testWwwBlockTheKidsCom = mustHex([]byte(
 	`0242 15e6 1008 34e8 9442 29a9 0800 4500` + //  .B....4..B)...E.
@@ -201,7 +203,8 @@ var wwwPTRResponse = []byte{
 	0x6f, 0x6d, 0x00, 0x00, 0x00, 0x29, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // om...)........
 }
 
-/**
+/*
+*
 ; <<>> DiG 9.16.1-Ubuntu <<>> twitter.com
 ;; global options: +cmd
 ;; Got answer:
@@ -234,7 +237,8 @@ twitter.com.            9525    IN      NS      d01-01.ns.twtrdns.net.
 ;; WHEN: Thu Jan 27 22:08:45 AEDT 2022
 
 34:e8:94:42:29:a9 > 02:42:15:e6:10:08, ethertype IPv4 (0x0800), length 321: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 307)
-    192.168.1.1.53 > 192.168.0.129.58480: 36571 2/10/1 twitter.com. A 104.244.42.1, twitter.com. A 104.244.42.65 (279)
+
+	192.168.1.1.53 > 192.168.0.129.58480: 36571 2/10/1 twitter.com. A 104.244.42.1, twitter.com. A 104.244.42.65 (279)
 */
 var testTwitterCom = mustHex([]byte(
 	`0242 15e6 1008 34e8 9442 29a9 0800 4500` + //  .B....4..B)...E.

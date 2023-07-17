@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/netip"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 func (h *DNSHandler) PrintDNSTable() {

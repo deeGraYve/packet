@@ -7,39 +7,42 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 	"golang.org/x/net/dns/dnsmessage"
 )
 
 // MDNS RFC
-//    see https://datatracker.ietf.org/doc/html/rfc6762
-//    see Apple bonjour - https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NetServices/Introduction.html
 //
-//    One of the motivations for DNS-based Service Discovery is to enable a
-//    visiting client (e.g., a Wi-Fi-equipped [IEEEW] laptop computer,
-//    tablet, or mobile telephone) arriving on a new network to discover
-//    what services are available on that network, without any manual
-//    configuration.
+//	see https://datatracker.ietf.org/doc/html/rfc6762
+//	see Apple bonjour - https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NetServices/Introduction.html
 //
-//    This discovery is performed using DNS queries, using Unicast or
-//    Multicast DNS.  Five special RR names are reserved for this purpose:
+//	One of the motivations for DNS-based Service Discovery is to enable a
+//	visiting client (e.g., a Wi-Fi-equipped [IEEEW] laptop computer,
+//	tablet, or mobile telephone) arriving on a new network to discover
+//	what services are available on that network, without any manual
+//	configuration.
 //
-//     b._dns-sd._udp.<domain>.
-//    db._dns-sd._udp.<domain>.
-//     r._dns-sd._udp.<domain>.
-//    dr._dns-sd._udp.<domain>.
-//    lb._dns-sd._udp.<domain>.
+//	This discovery is performed using DNS queries, using Unicast or
+//	Multicast DNS.  Five special RR names are reserved for this purpose:
+//
+//	 b._dns-sd._udp.<domain>.
+//	db._dns-sd._udp.<domain>.
+//	 r._dns-sd._udp.<domain>.
+//	dr._dns-sd._udp.<domain>.
+//	lb._dns-sd._udp.<domain>.
 //
 // TODO: investigate mdns domain resolution
-//    For example, if a host has the address 192.168.12.34, with
-//    the subnet mask 255.255.0.0, then the 'base' address of the subnet is
-//    192.168.0.0, and to discover the recommended automatic browsing
-//    domain(s) for devices on this subnet, the host issues a DNS PTR query
-//    for the name "lb._dns-sd._udp.0.0.168.192.in-addr.arpa."
+//
+//	For example, if a host has the address 192.168.12.34, with
+//	the subnet mask 255.255.0.0, then the 'base' address of the subnet is
+//	192.168.0.0, and to discover the recommended automatic browsing
+//	domain(s) for devices on this subnet, the host issues a DNS PTR query
+//	for the name "lb._dns-sd._udp.0.0.168.192.in-addr.arpa."
 //
 // Service Discovery RFC
-//    see https://datatracker.ietf.org/doc/html/rfc6763
+//
+//	see https://datatracker.ietf.org/doc/html/rfc6763
 //
 // Given a type of service that a client is looking for, and a domain in which the client is
 // looking for that service, this mechanism allows clients to discover a

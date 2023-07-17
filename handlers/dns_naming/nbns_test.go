@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 func Test_encodeNBNSName(t *testing.T) {
@@ -58,7 +58,8 @@ func Test_decodeNBNSName(t *testing.T) {
 	}
 }
 
-//  sudo tcpdump -en -v -XX -t udp and port 137 or 138
+//	sudo tcpdump -en -v -XX -t udp and port 137 or 138
+//
 // 34:e8:94:42:29:a9 > 02:42:15:e6:10:08, ethertype IPv4 (0x0800), length 271: 192.168.0.1.137 > 192.168.0.129.137: UDP, length 229
 var nbnsFrame = []byte{
 	0x02, 0x42, 0x15, 0xe6, 0x10, 0x08, 0x34, 0xe8, 0x94, 0x42, 0x29, 0xa9, 0x08, 0x00, 0x45, 0x00, //  .B....4..B)...E.

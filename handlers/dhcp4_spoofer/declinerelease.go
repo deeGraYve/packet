@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"net/netip"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // handleDecline will process a DHCP decline message from a client and free up the

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 	"golang.org/x/net/ipv6"
 )
 
@@ -41,10 +41,13 @@ func TestICMP4Redirect_IsValid(t *testing.T) {
 	}
 }
 
-/* sudo tcpdump -en -v -XX -t port 67 or port 68
+/*
+	sudo tcpdump -en -v -XX -t port 67 or port 68
+
 48:86:e8:28:54:30 > 33:33:ff:42:29:a9, ethertype IPv6 (0x86dd), length 86: (hlim 255, next-header ICMPv6 (58) payload length: 32)
 fe80::c471:bcf1:a434:cffc > ff02::1:ff42:29a9: [icmp6 sum ok] ICMP6, neighbor solicitation, length 32, who has fe80::36e8:94ff:fe42:29a9
-          source link-address option (1), length 8 (1): 48:86:e8:28:54:30
+
+	source link-address option (1), length 8 (1): 48:86:e8:28:54:30
 */
 var icmp6_ns_req = []byte(
 	`3333 ff42 29a9 4886 e828 5430 86dd 6000` + //  33.B).H..(T0..`.
@@ -57,11 +60,12 @@ var icmp6_ns_req = []byte(
 /*
 34:e8:94:42:29:a9 > 33:33:00:00:00:01, ethertype IPv6 (0x86dd), length 142: (hlim 255, next-header ICMPv6 (58) payload length: 88)
 fe80::36e8:94ff:fe42:29a9 > ff02::1: [icmp6 sum ok] ICMP6, router advertisement, length 88
-        hop limit 64, Flags [other stateful], pref high, router lifetime 30s, reachable time 0ms, retrans timer 0ms
-          prefix info option (3), length 32 (4): 2001:4479:1d00:7002::/64, Flags [onlink, auto], valid time 300s, pref. time 120s
-          rdnss option (25), length 24 (3):  lifetime 10s, addr: fe80::36e8:94ff:fe42:29a9
-          mtu option (5), length 8 (1):  1500
-          source link-address option (1), length 8 (1): 34:e8:94:42:29:a9
+
+	hop limit 64, Flags [other stateful], pref high, router lifetime 30s, reachable time 0ms, retrans timer 0ms
+	  prefix info option (3), length 32 (4): 2001:4479:1d00:7002::/64, Flags [onlink, auto], valid time 300s, pref. time 120s
+	  rdnss option (25), length 24 (3):  lifetime 10s, addr: fe80::36e8:94ff:fe42:29a9
+	  mtu option (5), length 8 (1):  1500
+	  source link-address option (1), length 8 (1): 34:e8:94:42:29:a9
 */
 var icmp6_ra_req = []byte(
 	`3333 0000 0001 34e8 9442 29a9 86dd 6000` + //  33....4..B)...`.

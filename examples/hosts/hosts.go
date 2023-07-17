@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 // Simple utility to list hosts on LAN

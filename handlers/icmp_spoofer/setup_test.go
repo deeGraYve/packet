@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 var (

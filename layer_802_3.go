@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 // Local Link Control
@@ -57,16 +57,17 @@ func (p LLC) FastLog(line *fastlog.Line) *fastlog.Line {
 }
 
 // Local Link Control - SNAP extension
-//    +-------+--------+--------+
-//    |  MAC Header    (14 bytes)                                802.{3/4/5} MAC
-//    +--------+--------+--------+
-//    | DSAP=AA| SSAP=AA| Control|                               802.2 LLC - unnumbered (1 byte control = 0x03)
-//    +--------+--------+---------+--------+--------+
-//    |    OUI                    |    EtherType    |            802.2 SNAP - OUI is zero if using EtheryType otherwise it is an organisation ID
-//    +--------+--------+---------+--------+--------+
-//    The total length of the LLC Header and the SNAP header is 8-octets.
-//    An organizationally unique identifier (OUI) is a 24-bit number that uniquely identifies a vendor, manufacturer, or other organization.
-//    EtherType is zero if not carrying an registered EtherType
+//
+//	+-------+--------+--------+
+//	|  MAC Header    (14 bytes)                                802.{3/4/5} MAC
+//	+--------+--------+--------+
+//	| DSAP=AA| SSAP=AA| Control|                               802.2 LLC - unnumbered (1 byte control = 0x03)
+//	+--------+--------+---------+--------+--------+
+//	|    OUI                    |    EtherType    |            802.2 SNAP - OUI is zero if using EtheryType otherwise it is an organisation ID
+//	+--------+--------+---------+--------+--------+
+//	The total length of the LLC Header and the SNAP header is 8-octets.
+//	An organizationally unique identifier (OUI) is a 24-bit number that uniquely identifies a vendor, manufacturer, or other organization.
+//	EtherType is zero if not carrying an registered EtherType
 type SNAP []byte
 
 func (p SNAP) IsValid() error {

@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 func testSession() (*Session, net.PacketConn) {

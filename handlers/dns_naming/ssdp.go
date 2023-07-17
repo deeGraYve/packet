@@ -11,8 +11,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/irai/packet"
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 const moduleSSDP = "ssdp"
@@ -39,7 +39,6 @@ const defaultExpiryTime = time.Second * 300
 // 2. a composite identifier for the advertisement, sent in a USN (Unique Service Name) header,
 // 3. a URL for more information about the device (or enclosing device in the case of a service), sent in a LOCATION header,
 // 4. a duration for which the advertisement is valid, sent in a CACHE-CONTROL header.
-//
 //
 // see upnp spec: http://www.upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.0.pdf
 func processSSDPNotify(raw []byte) (name packet.NameEntry, location string, err error) {
@@ -112,13 +111,16 @@ func processSSDPNotify(raw []byte) (name packet.NameEntry, location string, err 
 // it appends a USERAGENT: field that we can use to identify the OS.
 //
 // Examples:
-//   USER-AGENT: Chromium/74.0.3729.131 Linux
-//   USER-AGENT: Microsoft Edge/91.0.864.64 Windows
-//   USER-AGENT: Google Chrome/92.0.4515.107 Windows
-//   USER-AGENT: My App/4 (iPhone; iOS 12.4) CocoaSSDP/0.1.0/1
+//
+//	USER-AGENT: Chromium/74.0.3729.131 Linux
+//	USER-AGENT: Microsoft Edge/91.0.864.64 Windows
+//	USER-AGENT: Google Chrome/92.0.4515.107 Windows
+//	USER-AGENT: My App/4 (iPhone; iOS 12.4) CocoaSSDP/0.1.0/1
 //
 // According to section 1.3.2 of the UPnP Device Architecture 1.1 the value should have the following syntax:
-//   USER-AGENT: OS/version UPnP/1.1 product/version
+//
+//	USER-AGENT: OS/version UPnP/1.1 product/version
+//
 // but clearly not many follow this format.
 func processSSDPSearchRequest(raw []byte) (name packet.NameEntry, location string, err error) {
 	req, err := http.ReadRequest(bufio.NewReader(bytes.NewReader(raw)))
@@ -178,11 +180,12 @@ func processSSDPResponse(raw []byte) (name packet.NameEntry, location string, er
 }
 
 // When a control point is added to the network, it should send a multicast request with method M-SEARCH in the following format.
-//  M-SEARCH * HTTP/1.1
-//  HOST: 239.255.255.250:1900
-//  MAN: "ssdp:discover"
-//  MX: seconds to delay response
-//  ST: "ssdp:all"
+//
+//	M-SEARCH * HTTP/1.1
+//	HOST: 239.255.255.250:1900
+//	MAN: "ssdp:discover"
+//	MX: seconds to delay response
+//	ST: "ssdp:all"
 var mSearchString = append([]byte(`
 M-SEARCH * HTTP/1.1
 HOST: 239.255.255.250:1900
@@ -190,12 +193,12 @@ MAN: "ssdp:discover"
 MX: 1
 ST: "ssdp:all"`), []byte{0x0d, 0x0a, 0x0d, 0x0a}...) // must have 0d0a,0d0a at the end
 
-//SendSSDPSearch transmit a multicast SSDP M-SEARCH discovery packet
+// SendSSDPSearch transmit a multicast SSDP M-SEARCH discovery packet
 //
 // TODO: test with samsung SSDP string
-//       MSearch ST: urn:samsung.com:service:MultiScreenService:1
-//       see: https://developer.samsung.com/smarttv/develop/legacy-platform-library/art00030/index.html#
 //
+//	MSearch ST: urn:samsung.com:service:MultiScreenService:1
+//	see: https://developer.samsung.com/smarttv/develop/legacy-platform-library/art00030/index.html#
 func (h *DNSHandler) SendSSDPSearch() (err error) {
 	b := packet.EtherBufferPool.Get().(*[packet.EthMaxSize]byte)
 	defer packet.EtherBufferPool.Put(b)

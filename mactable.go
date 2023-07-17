@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/irai/packet/fastlog"
+	"github.com/deeGraYve/packet/fastlog"
 )
 
 // MACEntry stores mac details

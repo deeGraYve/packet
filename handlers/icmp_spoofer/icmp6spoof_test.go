@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 func TestHandler_StartHunt(t *testing.T) {

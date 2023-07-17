@@ -5,7 +5,7 @@ import (
 	"net"
 	"syscall"
 
-	"github.com/irai/packet"
+	"github.com/deeGraYve/packet"
 )
 
 func sendDHCP4Packet(conn net.PacketConn, srcAddr packet.Addr, dstAddr packet.Addr, p packet.DHCP4) (err error) {
